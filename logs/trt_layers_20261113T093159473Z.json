@@ -1,0 +1,4393 @@
+{
+  "Layers": [
+    {
+      "Name": "Reformatting CopyNode for Input Tensor 0 to node_Conv_754 + node_relu",
+      "LayerType": "Reformat",
+      "Inputs": [
+        {
+          "Name": "input",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            3,
+            224,
+            224
+          ],
+          "Format/Datatype": "Float"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "Reformatted Input Tensor 0 to node_Conv_754 + node_relu",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            3,
+            224,
+            224
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Reformat",
+      "Origin": "REFORMAT",
+      "TacticValue": "0x00000000000003ea",
+      "StreamId": 0,
+      "Metadata": ""
+    },
+    {
+      "Name": "node_Conv_754 + node_relu",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "Reformatted Input Tensor 0 to node_Conv_754 + node_relu",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            3,
+            224,
+            224
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            112,
+            112
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        7,
+        7
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        3,
+        3
+      ],
+      "PostPadding": [
+        3,
+        3
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 9408
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_image_first_layer_f16f16_f32_f16_nhwckrsc_nhwc_hmma_k64c4r7s7_stride2x2_tile16x64x64_tensor1688",
+      "TacticValue": "0x72467bdc3c9a55f0",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_754]\u001e[ONNX Layer: node_relu]"
+    },
+    {
+      "Name": "node_max_pool2d",
+      "LayerType": "CaskPooling",
+      "Inputs": [
+        {
+          "Name": "relu",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            112,
+            112
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "max_pool2d",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Pooling",
+      "PoolingType": "MAX",
+      "WindowSize": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "BlendFactor": 0,
+      "AverageCountExcludesPadding": 1,
+      "TacticName": "sm50_xmma_pooling_max_nhwc_FP16FP32_WINDOWSIZE_3_NOT_PROPAGATE_NAN_2D",
+      "TacticValue": "0xee73a603ebea4565",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_max_pool2d]"
+    },
+    {
+      "Name": "node_Conv_756 + node_relu_1",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "max_pool2d",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_1",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 4096
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize128x32x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r1s1",
+      "TacticValue": "0x41e8a431d0137286",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_756]\u001e[ONNX Layer: node_relu_1]"
+    },
+    {
+      "Name": "node_Conv_758 + node_relu_2",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_1",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_2",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 36864
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x30150d05024bc911",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_758]\u001e[ONNX Layer: node_relu_2]"
+    },
+    {
+      "Name": "node_Conv_760",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_2",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "getitem_9",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 16384
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 0,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "NONE",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_indexed_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8",
+      "TacticValue": "0x784dcede905d06c0",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_760]"
+    },
+    {
+      "Name": "node_Conv_762 + node_add_95 + node_relu_3",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "max_pool2d",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "getitem_9",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_3",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 16384
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "volta_h884gemm_128x64_ldg8_relu_nn_v1",
+      "TacticValue": "0x0000000000020658",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_762]\u001e[ONNX Layer: node_add_95]\u001e[ONNX Layer: node_relu_3]"
+    },
+    {
+      "Name": "node_Conv_764 + node_relu_4",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_3",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_4",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 16384
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x32x64_stage1_warpsize2x1x2_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x017a89ce2d82b850",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_764]\u001e[ONNX Layer: node_relu_4]"
+    },
+    {
+      "Name": "node_Conv_766 + node_relu_5",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_4",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_5",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 36864
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x30150d05024bc911",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_766]\u001e[ONNX Layer: node_relu_5]"
+    },
+    {
+      "Name": "node_Conv_768 + node_add_171 + node_relu_6",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_5",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_3",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_6",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 16384
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "volta_h884gemm_128x64_ldg8_relu_nn_v1",
+      "TacticValue": "0x0000000000020658",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_768]\u001e[ONNX Layer: node_add_171]\u001e[ONNX Layer: node_relu_6]"
+    },
+    {
+      "Name": "node_Conv_770 + node_relu_7",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_6",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_7",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 16384
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x32x64_stage1_warpsize2x1x2_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x017a89ce2d82b850",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_770]\u001e[ONNX Layer: node_relu_7]"
+    },
+    {
+      "Name": "node_Conv_772 + node_relu_8",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_7",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_8",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 64,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 36864
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 64
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize256x64x32_stage1_warpsize4x1x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x30150d05024bc911",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_772]\u001e[ONNX Layer: node_relu_8]"
+    },
+    {
+      "Name": "node_Conv_774 + node_add_247 + node_relu_9",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_8",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            64,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_6",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_9",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 16384
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "volta_h884gemm_128x64_ldg8_relu_nn_v1",
+      "TacticValue": "0x0000000000020658",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_774]\u001e[ONNX Layer: node_add_247]\u001e[ONNX Layer: node_relu_9]"
+    },
+    {
+      "Name": "node_Conv_782",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_9",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "getitem_42",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 131072
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 0,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "NONE",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_interior_nhwc_tn_v1",
+      "TacticValue": "0x2a3615ad33745f0b",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_782]"
+    },
+    {
+      "Name": "node_Conv_776 + node_relu_10",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_9",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_10",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 32768
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_776]\u001e[ONNX Layer: node_relu_10]"
+    },
+    {
+      "Name": "node_Conv_778 + node_relu_11",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_10",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            56,
+            56
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_11",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 147456
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x6cee4d9c86b4cdd5",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_778]\u001e[ONNX Layer: node_relu_11]"
+    },
+    {
+      "Name": "node_Conv_780 + node_add_333 + node_relu_12",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_11",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "getitem_42",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_12",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_indexed_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8",
+      "TacticValue": "0x784dcede905d06c0",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_780]\u001e[ONNX Layer: node_add_333]\u001e[ONNX Layer: node_relu_12]"
+    },
+    {
+      "Name": "node_Conv_784 + node_relu_13",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_12",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_13",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_tn_v1",
+      "TacticValue": "0x0000000002040030",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_784]\u001e[ONNX Layer: node_relu_13]"
+    },
+    {
+      "Name": "node_Conv_786 + node_relu_14",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_13",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_14",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 147456
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_256x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0x21739cdb4c6113ed",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_786]\u001e[ONNX Layer: node_relu_14]"
+    },
+    {
+      "Name": "node_Conv_788 + node_add_409 + node_relu_15",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_14",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_12",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_15",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_indexed_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8",
+      "TacticValue": "0x784dcede905d06c0",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_788]\u001e[ONNX Layer: node_add_409]\u001e[ONNX Layer: node_relu_15]"
+    },
+    {
+      "Name": "node_Conv_790 + node_relu_16",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_15",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_16",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_tn_v1",
+      "TacticValue": "0x0000000002040030",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_790]\u001e[ONNX Layer: node_relu_16]"
+    },
+    {
+      "Name": "node_Conv_792 + node_relu_17",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_16",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_17",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 147456
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_256x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0x21739cdb4c6113ed",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_792]\u001e[ONNX Layer: node_relu_17]"
+    },
+    {
+      "Name": "node_Conv_794 + node_add_485 + node_relu_18",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_17",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_15",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_18",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_indexed_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8",
+      "TacticValue": "0x784dcede905d06c0",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_794]\u001e[ONNX Layer: node_add_485]\u001e[ONNX Layer: node_relu_18]"
+    },
+    {
+      "Name": "node_Conv_796 + node_relu_19",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_18",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_19",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_tn_v1",
+      "TacticValue": "0x0000000002040030",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_796]\u001e[ONNX Layer: node_relu_19]"
+    },
+    {
+      "Name": "node_Conv_798 + node_relu_20",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_19",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_20",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 128,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 147456
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 128
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_256x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0x21739cdb4c6113ed",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_798]\u001e[ONNX Layer: node_relu_20]"
+    },
+    {
+      "Name": "node_Conv_800 + node_add_561 + node_relu_21",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_20",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            128,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_18",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_21",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 65536
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_indexed_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8",
+      "TacticValue": "0x784dcede905d06c0",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_800]\u001e[ONNX Layer: node_add_561]\u001e[ONNX Layer: node_relu_21]"
+    },
+    {
+      "Name": "node_Conv_808",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_21",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "getitem_81",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 524288
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 0,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "NONE",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_interior_nhwc_tn_v1",
+      "TacticValue": "0x2a3615ad33745f0b",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_808]"
+    },
+    {
+      "Name": "node_Conv_802 + node_relu_22",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_21",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_22",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 131072
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_802]\u001e[ONNX Layer: node_relu_22]"
+    },
+    {
+      "Name": "node_Conv_804 + node_relu_23",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_22",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            28,
+            28
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_23",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 589824
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_256x64_sliced1x2_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0xaf407014f2c7f1cb",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_804]\u001e[ONNX Layer: node_relu_23]"
+    },
+    {
+      "Name": "node_Conv_806 + node_add_647 + node_relu_24",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_23",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "getitem_81",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_24",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x62a22cfa1199e58e",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_806]\u001e[ONNX Layer: node_add_647]\u001e[ONNX Layer: node_relu_24]"
+    },
+    {
+      "Name": "node_Conv_810 + node_relu_25",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_24",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_25",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_810]\u001e[ONNX Layer: node_relu_25]"
+    },
+    {
+      "Name": "node_Conv_812 + node_relu_26",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_25",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_26",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 589824
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0xd47a5fce3824e4a4",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_812]\u001e[ONNX Layer: node_relu_26]"
+    },
+    {
+      "Name": "node_Conv_814 + node_add_723 + node_relu_27",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_26",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_24",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_27",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x62a22cfa1199e58e",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_814]\u001e[ONNX Layer: node_add_723]\u001e[ONNX Layer: node_relu_27]"
+    },
+    {
+      "Name": "node_Conv_816 + node_relu_28",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_27",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_28",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_816]\u001e[ONNX Layer: node_relu_28]"
+    },
+    {
+      "Name": "node_Conv_818 + node_relu_29",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_28",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_29",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 589824
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0xd47a5fce3824e4a4",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_818]\u001e[ONNX Layer: node_relu_29]"
+    },
+    {
+      "Name": "node_Conv_820 + node_add_799 + node_relu_30",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_29",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_27",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_30",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x62a22cfa1199e58e",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_820]\u001e[ONNX Layer: node_add_799]\u001e[ONNX Layer: node_relu_30]"
+    },
+    {
+      "Name": "node_Conv_822 + node_relu_31",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_30",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_31",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_822]\u001e[ONNX Layer: node_relu_31]"
+    },
+    {
+      "Name": "node_Conv_824 + node_relu_32",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_31",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_32",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 589824
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0xd47a5fce3824e4a4",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_824]\u001e[ONNX Layer: node_relu_32]"
+    },
+    {
+      "Name": "node_Conv_826 + node_add_875 + node_relu_33",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_32",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_30",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_33",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x62a22cfa1199e58e",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_826]\u001e[ONNX Layer: node_add_875]\u001e[ONNX Layer: node_relu_33]"
+    },
+    {
+      "Name": "node_Conv_828 + node_relu_34",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_33",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_34",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_828]\u001e[ONNX Layer: node_relu_34]"
+    },
+    {
+      "Name": "node_Conv_830 + node_relu_35",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_34",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_35",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 589824
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0xd47a5fce3824e4a4",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_830]\u001e[ONNX Layer: node_relu_35]"
+    },
+    {
+      "Name": "node_Conv_832 + node_add_951 + node_relu_36",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_35",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_33",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_36",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x62a22cfa1199e58e",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_832]\u001e[ONNX Layer: node_add_951]\u001e[ONNX Layer: node_relu_36]"
+    },
+    {
+      "Name": "node_Conv_834 + node_relu_37",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_36",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_37",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_834]\u001e[ONNX Layer: node_relu_37]"
+    },
+    {
+      "Name": "node_Conv_836 + node_relu_38",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_37",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_38",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 256,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 589824
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 256
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688cudnn_128x128_ldg8_relu_exp_small_nhwc_tn_v1",
+      "TacticValue": "0xd47a5fce3824e4a4",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_836]\u001e[ONNX Layer: node_relu_38]"
+    },
+    {
+      "Name": "node_Conv_838 + node_add_1027 + node_relu_39",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_38",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            256,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_36",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_39",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 1024,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 262144
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 1024
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_simple_t1r1s1",
+      "TacticValue": "0x62a22cfa1199e58e",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_838]\u001e[ONNX Layer: node_add_1027]\u001e[ONNX Layer: node_relu_39]"
+    },
+    {
+      "Name": "node_Conv_846",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_39",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "getitem_138",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 2048,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 2097152
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 2048
+      },
+      "HasBias": 1,
+      "HasReLU": 0,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "NONE",
+      "TacticName": "turing_h1688cudnn_256x128_ldg8_relu_exp_interior_nhwc_tn_v1",
+      "TacticValue": "0xef1e5139c624a44f",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_846]"
+    },
+    {
+      "Name": "node_Conv_840 + node_relu_40",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_39",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            1024,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_40",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 524288
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000020400ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_840]\u001e[ONNX Layer: node_relu_40]"
+    },
+    {
+      "Name": "node_Conv_842 + node_relu_41",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_40",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            14,
+            14
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_41",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        2,
+        2
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 2359296
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x6cee4d9c86b4cdd5",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_842]\u001e[ONNX Layer: node_relu_41]"
+    },
+    {
+      "Name": "node_Conv_844 + node_add_1113 + node_relu_42",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_41",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "getitem_138",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_42",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 2048,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 1048576
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 2048
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_844]\u001e[ONNX Layer: node_add_1113]\u001e[ONNX Layer: node_relu_42]"
+    },
+    {
+      "Name": "node_Conv_848 + node_relu_43",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_42",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_43",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 1048576
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_tn_v1",
+      "TacticValue": "0x0000000002040030",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_848]\u001e[ONNX Layer: node_relu_43]"
+    },
+    {
+      "Name": "node_Conv_850 + node_relu_44",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_43",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_44",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 2359296
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x6cee4d9c86b4cdd5",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_850]\u001e[ONNX Layer: node_relu_44]"
+    },
+    {
+      "Name": "node_Conv_852 + node_add_1189 + node_relu_45",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_44",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_42",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_45",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 2048,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 1048576
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 2048
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_852]\u001e[ONNX Layer: node_add_1189]\u001e[ONNX Layer: node_relu_45]"
+    },
+    {
+      "Name": "node_Conv_854 + node_relu_46",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_45",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_46",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 1048576
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_tn_v1",
+      "TacticValue": "0x0000000002040030",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_854]\u001e[ONNX Layer: node_relu_46]"
+    },
+    {
+      "Name": "node_Conv_856 + node_relu_47",
+      "LayerType": "CaskConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_46",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_47",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        3,
+        3
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        1,
+        1
+      ],
+      "PostPadding": [
+        1,
+        1
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 512,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 2359296
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 512
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 0,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "sm75_xmma_fprop_implicit_gemm_f16f16_f16f16_f16_nhwckrsc_nhwc_tilesize64x64x64_stage1_warpsize2x2x1_g1_tensor16x8x8_t1r3s3",
+      "TacticValue": "0x6cee4d9c86b4cdd5",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_856]\u001e[ONNX Layer: node_relu_47]"
+    },
+    {
+      "Name": "node_Conv_858 + node_add_1265 + node_relu_48",
+      "LayerType": "CaskGemmConvolution",
+      "Inputs": [
+        {
+          "Name": "relu_47",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            512,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        },
+        {
+          "Name": "relu_45",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "relu_48",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Convolution",
+      "Kernel": [
+        1,
+        1
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "Dilation": [
+        1,
+        1
+      ],
+      "OutMaps": 2048,
+      "Groups": 1,
+      "Weights": {
+        "Type": "Half",
+        "Count": 1048576
+      },
+      "Bias": {
+        "Type": "Half",
+        "Count": 2048
+      },
+      "HasBias": 1,
+      "HasReLU": 1,
+      "HasSparseWeights": 0,
+      "HasDynamicFilter": 0,
+      "HasDynamicBias": 0,
+      "HasResidual": 1,
+      "ConvXAsActInputIdx": -1,
+      "BiasAsActInputIdx": -1,
+      "ResAsActInputIdx": -1,
+      "Activation": "RELU",
+      "TacticName": "turing_h1688gemm_128x128_ldg8_relu_nn_v1",
+      "TacticValue": "0x00000000000200ab",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_Conv_858]\u001e[ONNX Layer: node_add_1265]\u001e[ONNX Layer: node_relu_48]"
+    },
+    {
+      "Name": "node_mean",
+      "LayerType": "CaskPooling",
+      "Inputs": [
+        {
+          "Name": "relu_48",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            7,
+            7
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "mean",
+          "Location": "Device",
+          "Dimensions": [
+            -1,
+            2048,
+            1,
+            1
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "ParameterType": "Pooling",
+      "PoolingType": "AVERAGE",
+      "WindowSize": [
+        7,
+        7
+      ],
+      "PaddingMode": "kEXPLICIT_ROUND_DOWN",
+      "PrePadding": [
+        0,
+        0
+      ],
+      "PostPadding": [
+        0,
+        0
+      ],
+      "Stride": [
+        1,
+        1
+      ],
+      "BlendFactor": 0,
+      "AverageCountExcludesPadding": 1,
+      "TacticName": "sm50_xmma_pooling_nd_NDHWC_kAVERAGE_kGENERIC_3D_POOLING_MODE_kHALF_3",
+      "TacticValue": "0x6331ceb0db40665b",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_mean]"
+    },
+    {
+      "Name": "__mye165_0_myl56_0",
+      "LayerType": "shape_call",
+      "Inputs": [],
+      "Outputs": [],
+      "TacticName": "",
+      "StreamId": 0,
+      "Metadata": ""
+    },
+    {
+      "Name": "__myl_FcCast_myl56_1",
+      "LayerType": "fusion",
+      "Inputs": [
+        {
+          "Name": "mean",
+          "Dimensions": [
+            -1,
+            2048
+          ],
+          "Format/Datatype": "Half"
+        }
+      ],
+      "Outputs": [
+        {
+          "Name": "logits",
+          "Dimensions": [
+            -1,
+            1000
+          ],
+          "Format/Datatype": "Float"
+        }
+      ],
+      "TacticName": "sm75_xmma_gemm_f16f16_f16f32_f32_tn_n_tilesize32x32x64_stage1_warpsize2x2x1_tensor16x8x8_by_fusion_tactic",
+      "StreamId": 0,
+      "Metadata": "[ONNX Layer: node_linear]"
+    }
+  ],
+  "Bindings": [
+    "input",
+    "logits"
+  ]
+}

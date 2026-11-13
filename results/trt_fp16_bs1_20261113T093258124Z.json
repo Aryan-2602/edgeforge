@@ -1,0 +1,85 @@
+{
+  "label": "trt_fp16_bs1",
+  "timestamp_utc": "20261113T093258123Z",
+  "batch_size": 1,
+  "n_warmup": 50,
+  "n_iters": 500,
+  "latency_ms": {
+    "p50": 1.5159199833869934,
+    "p95": 2.913321554660797,
+    "p99": 2.940967662334442,
+    "mean": 1.6194534420967102,
+    "std": 0.36338610282801925,
+    "min": 1.5013439655303955,
+    "max": 2.973184108734131
+  },
+  "wall_latency_ms": {
+    "p50": 1.544934500088857,
+    "p95": 2.9487423503269383,
+    "p99": 2.9920521199710493,
+    "mean": 1.652328159991157,
+    "std": 0.3675954943570545,
+    "min": 1.5247669998643687,
+    "max": 3.095668000241858
+  },
+  "throughput_img_s": {
+    "per_call": 617.4922810410021,
+    "pipelined": 683.1305692507353
+  },
+  "pipelined_total_ms": 731.9244995117188,
+  "gpu": {
+    "name": "Tesla T4",
+    "compute_capability": "7.5",
+    "nvidia_smi_before": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "780 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "57",
+      "power.draw": "36.76 W",
+      "power.limit": "70.00 W"
+    },
+    "nvidia_smi_after": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1590 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "60",
+      "power.draw": "68.15 W",
+      "power.limit": "70.00 W"
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": "10.16.1.11",
+    "onnxruntime": "1.31.1"
+  },
+  "extra": {
+    "model": "resnet50",
+    "weights": "IMAGENET1K_V2",
+    "backend": "tensorrt",
+    "precision": "fp16 (BuilderFlag.FP16, FP32 I/O)",
+    "engine_path": "resnet50_fp16_b1-8.engine",
+    "profile_batch": {
+      "min": 1,
+      "opt": 8,
+      "max": 8
+    },
+    "input": "torch.randn torch.float32 on GPU; no H2D copy timed; FP32->FP16 cast inside engine",
+    "sanity_vs_pytorch_fp32": {
+      "max_abs_diff": 0.0070955753326416016,
+      "top1_agreement": 1.0,
+      "note": "random-noise input; top-1 is not meaningful (see onnx_parity)"
+    }
+  }
+}

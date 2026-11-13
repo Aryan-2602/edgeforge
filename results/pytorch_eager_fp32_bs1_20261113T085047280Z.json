@@ -1,0 +1,82 @@
+{
+  "label": "pytorch_eager_fp32_bs1",
+  "timestamp_utc": "20261113T085047279Z",
+  "batch_size": 1,
+  "n_warmup": 50,
+  "n_iters": 500,
+  "latency_ms": {
+    "p50": 5.861503839492798,
+    "p95": 9.353092527389526,
+    "p99": 10.831117401123047,
+    "mean": 6.476779082298279,
+    "std": 1.2093117623272651,
+    "min": 5.390431880950928,
+    "max": 12.303008079528809
+  },
+  "wall_latency_ms": {
+    "p50": 5.886988499923973,
+    "p95": 9.382684150205021,
+    "p99": 10.886631420135018,
+    "mean": 6.511172257988619,
+    "std": 1.2185560032406588,
+    "min": 5.414710000422929,
+    "max": 12.363657000150852
+  },
+  "throughput_img_s": {
+    "per_call": 154.39773184994152,
+    "pipelined": 162.68037524198505
+  },
+  "pipelined_total_ms": 3073.511474609375,
+  "gpu": {
+    "name": "Tesla T4",
+    "compute_capability": "7.5",
+    "nvidia_smi_before": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1485 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "42",
+      "power.draw": "42.44 W",
+      "power.limit": "70.00 W"
+    },
+    "nvidia_smi_after": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1545 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "47",
+      "power.draw": "68.82 W",
+      "power.limit": "70.00 W"
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": null,
+    "onnxruntime": null
+  },
+  "extra": {
+    "model": "resnet50",
+    "weights": "IMAGENET1K_V2",
+    "backend": "pytorch_eager",
+    "precision": "fp32",
+    "memory_format": "torch.contiguous_format",
+    "input": "torch.randn on GPU; no H2D copy timed",
+    "cudnn_benchmark": true,
+    "run_order": [
+      "fp16:1",
+      "fp32:1",
+      "fp16:1"
+    ],
+    "run_index": 1
+  }
+}

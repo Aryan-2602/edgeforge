@@ -1,0 +1,81 @@
+{
+  "label": "pytorch_eager_fp32_bs1",
+  "timestamp_utc": "20261113T085116728Z",
+  "batch_size": 1,
+  "n_warmup": 50,
+  "n_iters": 500,
+  "latency_ms": {
+    "p50": 5.599456071853638,
+    "p95": 6.872732758522034,
+    "p99": 9.342827701568602,
+    "mean": 5.803547001838684,
+    "std": 0.7377198325036861,
+    "min": 5.298175811767578,
+    "max": 10.60041618347168
+  },
+  "wall_latency_ms": {
+    "p50": 5.6247135000830895,
+    "p95": 6.901396199828013,
+    "p99": 9.394885949968737,
+    "mean": 5.831438070006698,
+    "std": 0.7420205189688868,
+    "min": 5.319767999935721,
+    "max": 10.65189700011615
+  },
+  "throughput_img_s": {
+    "per_call": 172.30841753899458,
+    "pipelined": 185.9100008596522
+  },
+  "pipelined_total_ms": 2689.473388671875,
+  "gpu": {
+    "name": "Tesla T4",
+    "compute_capability": "7.5",
+    "nvidia_smi_before": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1455 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "46",
+      "power.draw": "69.03 W",
+      "power.limit": "70.00 W"
+    },
+    "nvidia_smi_after": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1485 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "50",
+      "power.draw": "72.54 W",
+      "power.limit": "70.00 W"
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": null,
+    "onnxruntime": null
+  },
+  "extra": {
+    "model": "resnet50",
+    "weights": "IMAGENET1K_V2",
+    "backend": "pytorch_eager",
+    "precision": "fp32",
+    "memory_format": "torch.contiguous_format",
+    "input": "torch.randn on GPU; no H2D copy timed",
+    "cudnn_benchmark": true,
+    "run_order": [
+      "fp32:1",
+      "fp16cl:1"
+    ],
+    "run_index": 0
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "label": "pytorch_eager_fp16cl_bs1",
+  "timestamp_utc": "20261113T093315889Z",
+  "batch_size": 1,
+  "n_warmup": 50,
+  "n_iters": 500,
+  "latency_ms": {
+    "p50": 6.097007989883423,
+    "p95": 8.056715011596678,
+    "p99": 11.043856878280637,
+    "mean": 6.346677939414978,
+    "std": 0.8982073758703923,
+    "min": 5.684895992279053,
+    "max": 11.450528144836426
+  },
+  "wall_latency_ms": {
+    "p50": 6.1328419997153105,
+    "p95": 8.100320150333571,
+    "p99": 11.085324640216639,
+    "mean": 6.384684500008007,
+    "std": 0.9015831440307834,
+    "min": 5.718212999454408,
+    "max": 11.505507000038051
+  },
+  "throughput_img_s": {
+    "per_call": 157.5627453521263,
+    "pipelined": 124.3033579750983
+  },
+  "pipelined_total_ms": 4022.41748046875,
+  "gpu": {
+    "name": "Tesla T4",
+    "compute_capability": "7.5",
+    "nvidia_smi_before": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "825 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "59",
+      "power.draw": "30.98 W",
+      "power.limit": "70.00 W"
+    },
+    "nvidia_smi_after": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1020 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "60",
+      "power.draw": "35.78 W",
+      "power.limit": "70.00 W"
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": "10.16.1.11",
+    "onnxruntime": "1.31.1"
+  },
+  "extra": {
+    "model": "resnet50",
+    "weights": "IMAGENET1K_V2",
+    "backend": "pytorch_eager",
+    "precision": "fp16cl",
+    "memory_format": "torch.channels_last",
+    "input": "torch.randn on GPU; no H2D copy timed",
+    "cudnn_benchmark": true,
+    "run_order": [
+      "fp16cl:1",
+      "fp16:1",
+      "fp16:8"
+    ],
+    "run_index": 0
+  }
+}

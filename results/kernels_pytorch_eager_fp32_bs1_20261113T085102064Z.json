@@ -1,0 +1,194 @@
+{
+  "variant": "fp32_bs1",
+  "precision": "fp32",
+  "memory_format": "torch.contiguous_format",
+  "batch_size": 1,
+  "total_kernel_launches": 214,
+  "distinct_kernels": 24,
+  "total_device_time_us": 3903.3699999999953,
+  "layout_kernels": [
+    {
+      "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW_flat<float, float, 4, true>(float, float, float const*, float*, float const*, float const*, float const*, float const*, float, int, cudnn::reduced_divisor, cudnn::reduced_divisor)",
+      "count": 11,
+      "device_time_us": 183.8690000000006
+    },
+    {
+      "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+      "count": 42,
+      "device_time_us": 181.66299999999865
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x32_sliced1x4_ldg4_relu_exp_small_nhwc_tn_v1",
+      "count": 2,
+      "device_time_us": 174.39600000000064
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x64_sliced1x2_ldg4_relu_exp_interior_nhwc_tn_v1",
+      "count": 1,
+      "device_time_us": 96.57400000000052
+    },
+    {
+      "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+      "count": 5,
+      "device_time_us": 44.28700000000208
+    },
+    {
+      "name": "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)",
+      "count": 1,
+      "device_time_us": 20.799000000000888
+    },
+    {
+      "name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+      "count": 3,
+      "device_time_us": 7.646999999999025
+    }
+  ],
+  "kernels": [
+    {
+      "name": "_5x_cudnn_volta_scudnn_winograd_128x128_ldg1_ldg4_relu_tile148t_nt_v1",
+      "count": 13,
+      "device_time_us": 760.1770000000033
+    },
+    {
+      "name": "volta_sgemm_128x64_nn",
+      "count": 17,
+      "device_time_us": 516.6910000000007
+    },
+    {
+      "name": "void cudnn::winograd::generateWinogradTilesKernel<0, float, float>(cudnn::winograd::GenerateWinogradTilesParams<float, float>)",
+      "count": 13,
+      "device_time_us": 426.1019999999953
+    },
+    {
+      "name": "void implicit_convolve_sgemm<float, float, int, 128, 5, 5, 3, 3, 3, 1, false, false, true>(int, int, int, float const*, int, float*, float const*, kernel_conv_params, unsigned long long, int, float, float, int, float const*, float const*, bool, bool, int, int)",
+      "count": 1,
+      "device_time_us": 306.52200000000084
+    },
+    {
+      "name": "volta_sgemm_64x64_nn",
+      "count": 7,
+      "device_time_us": 250.0749999999989
+    },
+    {
+      "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+      "count": 16,
+      "device_time_us": 195.479000000003
+    },
+    {
+      "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW_flat<float, float, 4, true>(float, float, float const*, float*, float const*, float const*, float const*, float const*, float, int, cudnn::reduced_divisor, cudnn::reduced_divisor)",
+      "count": 11,
+      "device_time_us": 183.8690000000006
+    },
+    {
+      "name": "void cudnn::bn_fw_inf_1C11_kernel_NCHW<float, float, true, 1>(float, float, cudnnTensorStruct, float const*, cudnnTensorStruct, float*, cudnnTensorStruct, float const*, float const*, float const*, float const*, float)",
+      "count": 42,
+      "device_time_us": 181.66299999999865
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x32_sliced1x4_ldg4_relu_exp_small_nhwc_tn_v1",
+      "count": 2,
+      "device_time_us": 174.39600000000064
+    },
+    {
+      "name": "volta_sgemm_128x128_nn",
+      "count": 5,
+      "device_time_us": 153.0859999999975
+    },
+    {
+      "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, false>(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+      "count": 49,
+      "device_time_us": 138.94099999999708
+    },
+    {
+      "name": "volta_sgemm_64x32_sliced1x4_nn",
+      "count": 3,
+      "device_time_us": 112.25399999999718
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x64_relu_interior_nn_v1",
+      "count": 2,
+      "device_time_us": 112.22099999999955
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x64_sliced1x2_ldg4_relu_exp_interior_nhwc_tn_v1",
+      "count": 1,
+      "device_time_us": 96.57400000000052
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x64_relu_small_nn_v1",
+      "count": 1,
+      "device_time_us": 70.71799999999894
+    },
+    {
+      "name": "_5x_cudnn_volta_scudnn_128x64_relu_xregs_large_nn_v1",
+      "count": 1,
+      "device_time_us": 52.95899999999983
+    },
+    {
+      "name": "void cudnn::engines_precompiled::nchwToNhwcKernel<float, float, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nchw2nhwc_params_t<float>, float const*, float*)",
+      "count": 5,
+      "device_time_us": 44.28700000000208
+    },
+    {
+      "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+      "count": 7,
+      "device_time_us": 43.03900000000067
+    },
+    {
+      "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 7, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+      "count": 1,
+      "device_time_us": 35.199000000000524
+    },
+    {
+      "name": "void at::native::(anonymous namespace)::max_pool_forward_nchw<float, int>(int, float const*, long, long, long, int, int, int, int, int, int, int, int, int, int, float*, long*)",
+      "count": 1,
+      "device_time_us": 20.799000000000888
+    },
+    {
+      "name": "void cask__5x_cudnn::computeOffsetsKernel<false, false>(cask__5x_cudnn::ComputeOffsetsParams)",
+      "count": 7,
+      "device_time_us": 12.00000000000091
+    },
+    {
+      "name": "void cudnn::engines_precompiled::nhwcToNchwKernel<float, float, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompiled::nhwc2nchw_params_t<float>, float const*, float*)",
+      "count": 3,
+      "device_time_us": 7.646999999999025
+    },
+    {
+      "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)",
+      "count": 1,
+      "device_time_us": 6.720000000001164
+    },
+    {
+      "name": "Memset (Device)",
+      "count": 5,
+      "device_time_us": 1.951999999997497
+    }
+  ],
+  "chrome_trace": "logs/trace_pytorch_eager_fp32_bs1_20261113T085101953Z.json",
+  "cudnn_benchmark": true,
+  "gpu": {
+    "name": "Tesla T4",
+    "nvidia_smi": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1590 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "45",
+      "power.draw": "36.67 W",
+      "power.limit": "70.00 W"
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": null,
+    "onnxruntime": null
+  }
+}

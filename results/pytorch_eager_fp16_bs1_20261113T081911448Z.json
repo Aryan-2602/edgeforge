@@ -1,0 +1,75 @@
+{
+  "label": "pytorch_eager_fp16_bs1",
+  "timestamp_utc": "20261113T081911447Z",
+  "batch_size": 1,
+  "n_warmup": 50,
+  "n_iters": 500,
+  "latency_ms": {
+    "p50": 8.331535816192627,
+    "p95": 12.017059230804442,
+    "p99": 13.333275117874145,
+    "mean": 8.324473655700684,
+    "std": 1.7845456746198998,
+    "min": 6.285408020019531,
+    "max": 13.67692756652832
+  },
+  "wall_latency_ms": {
+    "p50": 8.378516999982821,
+    "p95": 12.064555700004576,
+    "p99": 13.390878770021573,
+    "mean": 8.367131859999175,
+    "std": 1.7907704756392937,
+    "min": 6.318186000044079,
+    "max": 13.731632999963495
+  },
+  "throughput_img_s": {
+    "per_call": 120.12771513970614,
+    "pipelined": 146.4657416058252
+  },
+  "pipelined_total_ms": 3413.767578125,
+  "gpu": {
+    "name": "Tesla T4",
+    "compute_capability": "7.5",
+    "nvidia_smi_before": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1590 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "61",
+      "power.draw": "53.35 W",
+      "power.limit": "70.00 W"
+    },
+    "nvidia_smi_after": {
+      "name": "Tesla T4",
+      "driver_version": "580.82.07",
+      "pstate": "P0",
+      "clocks.sm": "1380 MHz",
+      "clocks.max.sm": "1590 MHz",
+      "clocks.mem": "5000 MHz",
+      "clocks.max.mem": "5001 MHz",
+      "temperature.gpu": "61",
+      "power.draw": "47.86 W",
+      "power.limit": "70.00 W"
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": null,
+    "onnxruntime": null
+  },
+  "extra": {
+    "model": "resnet50",
+    "weights": "IMAGENET1K_V2",
+    "backend": "pytorch_eager",
+    "precision": "fp16",
+    "input": "torch.randn on GPU; no H2D copy timed",
+    "cudnn_benchmark": true
+  }
+}

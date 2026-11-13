@@ -35,7 +35,7 @@ from PIL import Image
 from torchvision.models import ResNet50_Weights, resnet50
 
 from edgeforge.bench_trt import io_names
-from edgeforge.build_trt import ENGINE_PATH, PROFILE_BATCH, require_trt10
+from edgeforge.build_trt import ENGINE_PATH, PROFILE_BATCH, engine_sha256, require_trt10
 from edgeforge.harness import library_versions, save_results
 
 ROOT = Path(__file__).parent.parent
@@ -160,6 +160,10 @@ def compare(logits: torch.Tensor, ref_logits: torch.Tensor, labels: torch.Tensor
             for i in differs
         ],
         "max_abs_logit_diff_vs_fp32": (logits - ref_logits).abs().max().item(),
+        "max_abs_ref_logit": ref_logits.abs().max().item(),
+        # Relative error makes noise-input and real-image runs comparable: real
+        # images give larger, more confident logits, so absolute error grows.
+        "rel_max_abs_diff_vs_fp32": (logits - ref_logits).abs().max().item() / ref_logits.abs().max().item(),
     }
 
 
@@ -193,7 +197,8 @@ def main() -> None:
     for name, r in results.items():
         print(
             f"{name:<28} top-1 {r['top1']:.1%} ({r['correct']}/{len(paths)}) | "
-            f"differs from FP32 on {r['n_differs_from_fp32']} images | max |logit diff| {r['max_abs_logit_diff_vs_fp32']:.3e}"
+            f"differs from FP32 on {r['n_differs_from_fp32']} images | max |logit diff| {r['max_abs_logit_diff_vs_fp32']:.3e} "
+            f"(relative {r['rel_max_abs_diff_vs_fp32']:.2e})"
         )
 
     per_class = {
@@ -221,6 +226,7 @@ def main() -> None:
             "mapping": {wnid: {"imagenet_index": i, "name": n} for wnid, (i, n) in IMAGENETTE_TO_IMAGENET.items()},
             "batch_size": BATCH,
             "engine_path": ENGINE_PATH.name,
+            "engine_sha256": engine_sha256(),
             "results": results,
             "per_class_top1": per_class,
             "gpu": torch.cuda.get_device_name(),

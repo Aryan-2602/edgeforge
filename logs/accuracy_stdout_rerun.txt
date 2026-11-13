@@ -1,0 +1,5 @@
+500 images, 50/class, seed 0, tensor (500, 3, 224, 224)
+pytorch_fp32                 top-1 86.6% (433/500) | differs from FP32 on 0 images | max |logit diff| 0.000e+00 (relative 0.00e+00)
+pytorch_fp16_channels_last   top-1 86.8% (434/500) | differs from FP32 on 1 images | max |logit diff| 7.381e-02 (relative 7.72e-03)
+trt_fp16                     top-1 86.8% (434/500) | differs from FP32 on 1 images | max |logit diff| 7.077e-02 (relative 7.40e-03)
+saved /content/edgeforge/results/accuracy_20261113T100119380Z.json

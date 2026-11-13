@@ -27,7 +27,7 @@ import torch
 from torchvision.models import ResNet50_Weights, resnet50
 
 from edgeforge.baseline import DEFAULT_N_ITERS, DEFAULT_N_WARMUP
-from edgeforge.build_trt import ENGINE_PATH, IMAGE_SHAPE, PROFILE_BATCH, require_trt10
+from edgeforge.build_trt import ENGINE_PATH, IMAGE_SHAPE, PROFILE_BATCH, engine_sha256, require_trt10
 from edgeforge.harness import run_benchmark
 
 BATCH_SIZES = (1, 8)
@@ -100,8 +100,12 @@ def run_batch(
         ref = reference(x.float())
     torch.cuda.synchronize()
     max_abs_diff = (y.float() - ref).abs().max().item()
+    max_abs_ref_logit = ref.abs().max().item()
     top1_agreement = (y.float().argmax(1) == ref.argmax(1)).float().mean().item()
-    print(f"bs{batch_size}: TRT vs PyTorch FP32 max abs diff {max_abs_diff:.3e}, top-1 agreement {top1_agreement:.0%}")
+    print(
+        f"bs{batch_size}: TRT vs PyTorch FP32 max abs diff {max_abs_diff:.3e} "
+        f"(relative to max |logit| {max_abs_ref_logit:.2f}: {max_abs_diff / max_abs_ref_logit:.2e}), top-1 agreement {top1_agreement:.0%}"
+    )
 
     run_benchmark(
         lambda: context.execute_async_v3(stream.cuda_stream),
@@ -115,11 +119,14 @@ def run_batch(
             "backend": "tensorrt",
             "precision": "fp16 (BuilderFlag.FP16, FP32 I/O)",
             "engine_path": str(ENGINE_PATH.name),
+            "engine_sha256": engine_sha256(),
             "stream": "dedicated torch.cuda.Stream (not the default stream)",
             "profile_batch": PROFILE_BATCH,
             "input": f"torch.randn {in_dtype} on GPU; no H2D copy timed; FP32->FP16 cast inside engine",
             "sanity_vs_pytorch_fp32": {
                 "max_abs_diff": max_abs_diff,
+                "max_abs_ref_logit": max_abs_ref_logit,
+                "rel_max_abs_diff": max_abs_diff / max_abs_ref_logit,
                 "top1_agreement": top1_agreement,
                 "note": "random-noise input; top-1 is not meaningful (see onnx_parity)",
             },

@@ -1,0 +1,4 @@
+2026-11-13 10:00:28,884 [INFO] edgeforge.harness: trt_fp16_bs1 | p50 1.52 ms  p95 1.57  p99 2.25  mean 1.55 | 645 img/s per-call, 680 img/s pipelined | trt_fp16_bs1_20261113T100028883Z.json
+2026-11-13 10:00:33,594 [INFO] edgeforge.harness: trt_fp16_bs8 | p50 4.21 ms  p95 4.29  p99 4.37  mean 4.21 | 1901 img/s per-call, 1899 img/s pipelined | trt_fp16_bs8_20261113T100033593Z.json
+bs1: TRT vs PyTorch FP32 max abs diff 1.033e-02 (relative to max |logit| 5.39: 1.92e-03), top-1 agreement 100%
+bs8: TRT vs PyTorch FP32 max abs diff 8.994e-03 (relative to max |logit| 5.33: 1.69e-03), top-1 agreement 100%

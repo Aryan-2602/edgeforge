@@ -352,23 +352,6 @@ Nothing in this repo was measured on Orin.
 - INT8.
 - The cause of the periodic eager tail clusters.
 
-## Interview questions
-
-### FP16 / tensor cores and non-uniform layer speedup
-TODO (Aryan)
-
-### What TensorRT does (fusion, tactic selection), with evidence from `logs/`
-TODO (Aryan)
-
-### Warm-up, and p99 vs mean
-TODO (Aryan)
-
-### Batch 1 vs batch 8: latency vs throughput
-TODO (Aryan)
-
-### Jetson Orin differences (unified memory, power modes, DLA)
-TODO (Aryan)
-
 ## Reproduce (Colab, T4)
 
 ```

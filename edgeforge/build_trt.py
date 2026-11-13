@@ -22,6 +22,7 @@ Usage:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -48,6 +49,11 @@ def require_trt10() -> None:
     """Fail loudly on anything but TensorRT 10.x — the FP16 builder flag is gone in 11."""
     if int(trt.__version__.split(".")[0]) != TRT_MAJOR:
         raise SystemExit(f"TensorRT {trt.__version__} installed; need 10.x (pip install tensorrt-cu13==10.16.1.11)")
+
+
+def engine_sha256() -> str:
+    """sha256 of the serialized engine on disk, so every result names the exact engine it used."""
+    return hashlib.sha256(ENGINE_PATH.read_bytes()).hexdigest()
 
 
 class FileLogger(trt.ILogger):
@@ -143,6 +149,7 @@ def main() -> None:
             "onnx_path": str(ONNX_PATH.relative_to(ROOT)),
             "engine_path": str(ENGINE_PATH.relative_to(ROOT)),
             "engine_size_mb": ENGINE_PATH.stat().st_size / 1024**2,
+            "engine_sha256": engine_sha256(),
             "builder_flags": ["FP16"],
             "builder_optimization_level": config.builder_optimization_level,
             "profile": {"input": INPUT_NAME, **{k: [v, *IMAGE_SHAPE] for k, v in PROFILE_BATCH.items()}},

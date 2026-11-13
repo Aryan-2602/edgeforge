@@ -19,11 +19,14 @@ Timebox: ~3–4 hours. When the sentence exists and is backed by JSON, we stop.
   FP32 is context, not the headline.
 
 ## Environment facts (verify, don't assume)
-- Code is edited locally; it RUNS on Colab T4 (CUDA 12.x). You cannot run GPU code locally.
+- Code is edited locally; it RUNS on Colab T4 (CUDA 13, torch 2.14+cu130).
+  TensorRT and onnxruntime-gpu wheels must target CUDA 13. You cannot run GPU code locally.
   Give me exact commands to run in Colab and I'll paste back output.
 - TensorRT 10.x API: use `build_serialized_network`, `set_input_shape`, `set_tensor_address`,
   `execute_async_v3`, I/O tensors by name. Do NOT use TRT 8 binding-index APIs.
 - onnxruntime-gpu: assert `CUDAExecutionProvider` is active; fail loudly on CPU fallback.
+  Exception: if a CUDA 13 onnxruntime-gpu build is troublesome, CPU onnxruntime is fine for the
+  ONNX parity check (correctness, not speed) — label it as CPU in results.
 - Timing: CUDA events or explicit `torch.cuda.synchronize()`. Warm-up runs before measuring.
   Record GPU name, clocks (nvidia-smi), driver, torch/TRT/ORT versions in each JSON.
 

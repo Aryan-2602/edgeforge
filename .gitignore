@@ -1,9 +1,11 @@
 __pycache__/
 *.py[cod]
+*.pyc
 *.egg-info/
 .venv/
 venv/
 .DS_Store
 *.zip
+# TensorRT engines are GPU- and TensorRT-version-specific; don't commit them.
 models/
 data/

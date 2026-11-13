@@ -10,12 +10,20 @@ torch 2.14.1+cu130, CUDA 13.0, cuDNN 9.28, torchvision 0.29.1, Python 3.13.
 
 ## Status
 
-**Headline (latency done; accuracy pending):** on a Colab T4, ResNet-50 in TensorRT 10.16 FP16
-runs **4.0× faster than PyTorch FP16 eager (channels_last) at batch 1** (1.53 vs 6.09 ms p50)
-and **2.5× faster at batch 8** (4.22 vs 10.44 ms p50). Both were measured in the same Colab
-session; see "TensorRT FP16" below.
+**ResNet-50 in TensorRT 10.16 FP16 runs 4.0× faster than PyTorch FP16 eager (channels_last) on a
+Colab T4 at batch 1 (1.52 vs 6.04 ms p50), and its prediction differs from PyTorch FP32 on 1 of
+500 Imagenette images.**
 
-Still missing before this is the final sentence: top-1 accuracy on 500 Imagenette images.
+- **Batch 8:** the speedup is 2.5× (4.21 vs 10.48 ms p50).
+- **One engine for everything.** The latency and accuracy runs used the same engine file,
+  sha256 `c2bc78f3ca855f43…`. That hash appears in `trt_fp16_bs1_20261113T100028883Z.json`,
+  `trt_fp16_bs8_20261113T100033593Z.json`, `accuracy_20261113T100119380Z.json` and
+  `logs/engine_sha256.txt`. The eager runs come from the same Colab session.
+- **Where the engine came from:** the 09:51 build (`trt_build_20261113T095157628Z.json`). That
+  JSON predates the sha256 field, so the hash ties results to the engine file, not to a build
+  record.
+- **It reproduces across sessions:** an earlier session, on an engine with the same per-layer
+  kernels, gave 1.53 vs 6.09 ms (4.0×) and 4.22 vs 10.44 ms (2.5×).
 
 ## PyTorch eager baseline
 
@@ -109,8 +117,7 @@ and batch 8.
 
 **Caveat:** the 8/8 top-1 agreement tells us almost nothing. Unnormalised noise input makes
 every sample predict the same class (21), so the top-1 check is trivially satisfied. The max abs
-diff is the real evidence. A meaningful top-1 agreement needs real images (Imagenette), which is
-planned alongside the TensorRT FP16 accuracy check.
+diff is the real evidence. Top-1 on real images is in "Accuracy" below.
 
 ## TensorRT FP16
 
@@ -148,29 +155,34 @@ From `results/trt_build_20261113T094141828Z.json`, VERBOSE log
 
 ### Latency
 
-TensorRT and eager were measured in the same Colab session, with TensorRT on a dedicated stream:
+TensorRT and eager were measured in the same Colab session, with TensorRT on a dedicated stream,
+using engine sha256 `c2bc78f3…`:
 
 | Variant | p50 ms | p95 ms | p99 ms | img/s (per-call) | img/s (pipelined) | File |
 |---|---:|---:|---:|---:|---:|---|
-| TRT FP16 bs1 | 1.53 | 1.57 | 1.79 | 648 | 680 | `trt_fp16_bs1_20261113T094149430Z.json` |
-| Eager FP16 channels_last bs1 | 6.09 | 7.81 | 11.23 | 159 | 128* | `pytorch_eager_fp16cl_bs1_20261113T094206984Z.json` |
-| Eager FP16 bs1 | 7.00 | 8.48 | 12.35 | 138 | 140 | `pytorch_eager_fp16_bs1_20261113T094215330Z.json` |
-| TRT FP16 bs8 | 4.22 | 4.31 | 4.47 | 1898 | 1892 | `trt_fp16_bs8_20261113T094153977Z.json` |
-| Eager FP16 bs8 | 10.44 | 12.62 | 14.44 | 747 | 765 | `pytorch_eager_fp16_bs8_20261113T094227234Z.json` |
+| TRT FP16 bs1 | 1.52 | 1.57 | 2.25 | 645 | 680 | `trt_fp16_bs1_20261113T100028883Z.json` |
+| Eager FP16 channels_last bs1 | 6.04 | 7.29 | 10.30 | 160 | 135* | `pytorch_eager_fp16cl_bs1_20261113T100046663Z.json` |
+| Eager FP16 bs1 | 6.94 | 9.40 | 12.07 | 139 | 143 | `pytorch_eager_fp16_bs1_20261113T100054940Z.json` |
+| TRT FP16 bs8 | 4.21 | 4.29 | 4.37 | 1901 | 1899 | `trt_fp16_bs8_20261113T100033593Z.json` |
+| Eager FP16 bs8 | 10.48 | 12.26 | 14.71 | 746 | 763 | `pytorch_eager_fp16_bs8_20261113T100106830Z.json` |
 
 \* See the pipelined-throughput anomaly under "What didn't work".
 
-- **Batch 1:** TensorRT is **4.0× faster** at p50 than eager FP16 channels_last (6.09 / 1.53),
-  4.6× faster than plain FP16 eager, and 6.3× faster at p99. The gain is bigger than at batch 8,
+The previous session (`*_20261113T0941*`/`T0942*`, engine with the same per-layer kernels but no
+hash) gave TRT 1.53 / 4.22 ms and eager 6.09 / 10.44 ms p50, within 1% of these.
+
+- **Batch 1:** TensorRT is **4.0× faster** at p50 than eager FP16 channels_last (6.04 / 1.52),
+  4.6× faster than plain FP16 eager, and 4.6× faster at p99. The gain is bigger than at batch 8,
   as expected if eager batch 1 is limited by kernel launches. TensorRT runs the whole fused
   engine from one `execute_async_v3` call; eager launches 296 kernels from Python, per the
   kernel-count profile in an earlier session.
-- **Batch 8:** **2.5× faster** (10.44 / 4.22) and 2.5× the throughput (1898 vs 747 img/s). Here the
+- **Batch 8:** **2.5× faster** (10.48 / 4.21) and 2.5× the throughput (1901 vs 746 img/s). Here the
   GPU is the bottleneck, so the gain comes from fusion and better kernels rather than fewer
   launches.
-- **Sanity check against PyTorch FP32** (same random input): max abs logit difference 8.1e-3 at
-  batch 1 and 1.1e-2 at batch 8, on logits of about ±5. That's the size of difference FP16 should
-  give. Top-1 isn't meaningful here, since noise input predicts a single class.
+- **Sanity check against PyTorch FP32** (same random input): max abs logit difference 1.0e-2 at
+  batch 1 and 9.0e-3 at batch 8, on max |logit| of 5.39 and 5.33. That's a relative error of
+  1.9e-3 and 1.7e-3, about what FP16 should give. Top-1 isn't meaningful here, since noise input
+  predicts a single class.
 - The engine is tuned for batch 8 (opt = 8), so batch 1 runs on kernels chosen for batch 8.
 
 **The batch-1 second mode is gone.** In the first TensorRT run (default stream,
@@ -178,15 +190,56 @@ TensorRT and eager were measured in the same Colab session, with TensorRT on a d
 1.52 ms, about 5% of calls at roughly 2×. On the dedicated stream, 491 of 500 calls are within 10%
 of p50, and the only calls above 1.5× p50 are the first two timed ones (the SM clock started at
 1035 MHz). TensorRT's default-stream warning is also gone from `logs/bench_trt_stdout.txt`.
-Caveat: this is one run per condition in different Colab sessions, and the earlier run didn't
-save per-call samples, so this is consistent with the stream fix but not a controlled A/B test.
+The re-run reproduces this: only call 0 is above 1.5× p50; p99 is 2.25 ms. Caveat: we never ran
+default stream and dedicated stream in the same session, and the default-stream run didn't save
+per-call samples. So this is consistent with the stream fix, not a controlled A/B test.
 
 **Eager tails are periodic.** The slow eager calls come in runs of about three consecutive calls,
 recurring every 140–166 calls (fp16cl bs1: calls 57–59, 223–225, 383–385; fp16 bs1: calls 65–67,
-205–207, 346–348, 491–492). That's roughly once a second at batch 1, and it's what drives eager's
+205–207, 346–348, 491–492). The re-run shows the same pattern (fp16cl bs1: calls 113–114,
+277–279, 443–445). That's roughly once a second at batch 1, and it's what drives eager's
 p99. The cause is unknown; Python garbage collection and Colab background activity are the
 suspects. A 500-call TensorRT batch-1 run lasts only about 0.8 s, so it's too short to show a
 once-a-second hiccup. Its clean tail isn't proof that TensorRT is immune.
+
+## Accuracy (Imagenette, 500 images)
+
+`edgeforge/accuracy.py` takes 50 images per class from the imagenette2-320 val split (seed 0;
+the exact paths are in the JSON) and preprocesses them with `ResNet50_Weights.IMAGENET1K_V2.transforms()`.
+Scoring is **1000-way**: the argmax over all ImageNet classes must be the right class. Each
+Imagenette wnid is mapped to its ImageNet index, and every name is asserted against
+`weights.meta["categories"]`. All three backends get the same batches of 8. The TRT engine has
+the same sha256 as the latency runs (`c2bc78f3…`).
+
+From `results/accuracy_20261113T100119380Z.json`. The same 500 images and the same results as the
+first accuracy run, `accuracy_20261113T095543919Z.json`:
+
+| Backend | Top-1 | Correct | Predictions differing from FP32 | Max abs logit diff vs FP32 | Relative (÷ max \|logit\| 9.56) |
+|---|---:|---:|---:|---:|---:|
+| PyTorch FP32 | 86.6% | 433/500 | — | — | — |
+| PyTorch FP16 eager (channels_last) | 86.8% | 434/500 | 1 | 7.4e-2 | 7.7e-3 |
+| TensorRT FP16 | 86.8% | 434/500 | 1 | 7.1e-2 | 7.4e-3 |
+
+- **This test can't tell the three apart on top-1.** 86.8% vs 86.6% is one image. With n = 500,
+  the 95% confidence interval on 86.6% is about ±3 points. Neither FP16 backend "improved"
+  accuracy. The claim we can make is the flip count: TRT FP16 disagrees with FP32 on 1 of 500
+  images.
+- **Both FP16 backends flipped the same image, the same way.** `n02102040/n02102040_791.JPEG` is
+  an English springer that FP32 calls "Welsh springer spaniel" and both FP16 runs call "English
+  springer". One image flipped twice the same way, not two independent flips, means that image
+  sits on a decision boundary. Any small perturbation would tip it, and FP16 rounding happened
+  to tip it toward the correct class.
+- **Why top-1 is 86.6% and not ~95%:** this is 1000-way scoring. Per-class top-1 is
+  identical across all three backends. Church (54%) and cassette player (60%) pull the average
+  down; our guess is confusion with neighbouring ImageNet classes such as other buildings and
+  tape players, but we haven't checked what they're predicted as. Tench, chain saw: 100%;
+  everything else: 84–96%.
+- **Relative error doesn't fully explain the bigger real-image differences.** Real images
+  produce larger logits (max |logit| 9.56 vs ~5.4 on noise), but even relative to that, TRT's
+  error is about 4× higher on real images (7.4e-3 vs 1.7–1.9e-3 on noise). Part of this is
+  sample size: the real-image figure is the worst case over 500 images, the noise figure over 1
+  or 8. We haven't separated that from any genuine input-dependence. Either way, only one
+  prediction moved.
 
 ## What didn't work
 
@@ -195,9 +248,10 @@ once-a-second hiccup. Its clean tail isn't proof that TensorRT is immune.
   came out *below* per-call throughput (169 img/s). nvidia-smi showed the SM clock falling from
   1590 to 1095 MHz across that run. Our working explanation is power or clock throttling during
   the pipelined phase, but we haven't confirmed it. Don't use that pipelined number.
-  **It has now happened three times**, every time on a channels_last run and never on the
-  others. Per-call vs pipelined: 158 vs 124 img/s (`pytorch_eager_fp16cl_bs1_20261113T093316003Z.json`)
-  and 159 vs 128 img/s (`pytorch_eager_fp16cl_bs1_20261113T094206984Z.json`). That pattern makes
+  **It has now happened four times out of four channels_last runs**, and never on the other
+  variants. Per-call vs pipelined: 158 vs 124 img/s (`pytorch_eager_fp16cl_bs1_20261113T093316003Z.json`),
+  159 vs 128 img/s (`pytorch_eager_fp16cl_bs1_20261113T094206984Z.json`) and 160 vs 135 img/s
+  (`pytorch_eager_fp16cl_bs1_20261113T100046663Z.json`). That pattern makes
   throttling look unlikely. The cause is still unknown.
 - **The first TensorRT benchmark ran on the default CUDA stream.** TensorRT warned that it adds
   `cudaStreamSynchronize` calls in that case, and the batch-1 tail had a second mode at about 2×
@@ -209,6 +263,12 @@ once-a-second hiccup. Its clean tail isn't proof that TensorRT is immune.
   attempted fix (guarding the logger and keeping the TensorRT runtime alive) was a guess and
   missed the real bug.
 
+- **First accuracy run crashed on a wrong wnid.** The hardcoded wnid for parachute was
+  `n03888605`, which is ImageNet's "parallel bars". The correct one is `n03888257`. The
+  index-to-name assertion (701 → "parachute") passed because the index was right; only the
+  folder name was wrong. `accuracy.py` now also asserts that the hardcoded wnids are exactly the
+  dataset's class folders.
+
 ## Predictions vs measured
 
 | Prediction (made before the run) | Measured p50 |
@@ -216,7 +276,7 @@ once-a-second hiccup. Its clean tail isn't proof that TensorRT is immune.
 | bs1 ≈ 300 ms | FP32 5.65 ms, FP16 8.33 ms |
 | bs8 ≈ 700 ms | FP32 23.39 ms, FP16 10.70 ms |
 
-No predictions were recorded for the ONNX check or the TensorRT runs.
+No predictions were recorded for the ONNX check, the TensorRT runs or the accuracy run.
 
 ## Measurement notes
 
@@ -239,4 +299,5 @@ pip install tensorrt-cu13==10.16.1.11 --extra-index-url https://pypi.nvidia.com
 python -m edgeforge.build_trt
 python -m edgeforge.bench_trt
 python -m edgeforge.baseline --variants fp16cl:1 fp16:1 fp16:8   # same-session eager comparison
+python -m edgeforge.accuracy                                        # downloads imagenette2-320 (~340 MB)
 ```

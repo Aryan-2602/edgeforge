@@ -192,6 +192,8 @@ def run_benchmark(
         "n_iters": n_iters,
         "latency_ms": latency,
         "wall_latency_ms": _latency_stats(wall_ms),
+        # Raw per-call samples, so tail shape (e.g. a second mode) can be checked later.
+        "latency_ms_samples": [round(float(v), 4) for v in event_ms],
         "throughput_img_s": {
             "per_call": batch_size / latency["mean"] * 1000.0,
             "pipelined": batch_size * n_iters / pipelined_total_ms * 1000.0,

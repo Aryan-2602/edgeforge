@@ -1,0 +1,80 @@
+{
+  "model": "resnet50",
+  "weights": "IMAGENET1K_V2",
+  "onnx_path": "models/resnet50_fp32.onnx",
+  "onnx_size_mb": 97.59970474243164,
+  "exporter": "torch.onnx.export(dynamo=True), dynamic_shapes=({0: Dim('batch', min=1, max=64)},)",
+  "opset": 20,
+  "onnx_input_dims": [
+    "batch",
+    "3",
+    "224",
+    "224"
+  ],
+  "checker": "onnx.checker.check_model(full_check=True) passed",
+  "pytorch_reference_device": "cuda",
+  "ort_providers": [
+    "CPUExecutionProvider"
+  ],
+  "input": "torch.randn seed 0, unnormalised noise (not real images)",
+  "parity": [
+    {
+      "batch_size": 8,
+      "ort_output_shape": [
+        8,
+        1000
+      ],
+      "max_abs_diff": 3.337860107421875e-06,
+      "mean_abs_diff": 3.666935981527786e-07,
+      "max_abs_ref_logit": 5.372148513793945,
+      "top1_agreement": 1.0,
+      "top1_pytorch": [
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21
+      ],
+      "top1_ort": [
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21,
+        21
+      ]
+    },
+    {
+      "batch_size": 1,
+      "ort_output_shape": [
+        1,
+        1000
+      ],
+      "max_abs_diff": 1.8477439880371094e-06,
+      "mean_abs_diff": 2.936990881607926e-07,
+      "max_abs_ref_logit": 5.313687801361084,
+      "top1_agreement": 1.0,
+      "top1_pytorch": [
+        21
+      ],
+      "top1_ort": [
+        21
+      ]
+    }
+  ],
+  "versions": {
+    "python": "3.13.16",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "cudnn": "92800",
+    "torchvision": "0.29.1+cu130",
+    "tensorrt": null,
+    "onnxruntime": "1.31.1",
+    "onnx": "1.23.2"
+  }
+}
